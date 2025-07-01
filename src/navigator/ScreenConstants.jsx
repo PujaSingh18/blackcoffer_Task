@@ -1,0 +1,14 @@
+const ScreenConstants = {
+    LOGIN: 'LOGIN_SCREEN',
+    HOME: 'HOME_SCREEN',
+    PROFILE: 'PROFILE_SCREEN',
+    USER_SCREEN: 'USER_SCREEN',
+    LOCAL: 'LOCAL_SCREEN',
+    ALERT: 'ALERT_SCREEN',
+    EDIT: 'EDIT_SCREEN',
+    DRAFT: 'DRAFT_SCREEN',
+    HISTROY: 'HISTORY_SCREEN',
+    SERACH: 'SEARCH_SCREEN',
+};
+
+export default ScreenConstants;
