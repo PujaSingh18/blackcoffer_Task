@@ -1,8 +1,17 @@
-import React, { useState } from 'react'
-import { Image, Modal, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { updateProfile } from '../../../res'
-import { Camera_Icon } from '../../../res/Icons'
-import { height, width } from '../../../res/String'
+import React, { useState } from 'react';
+import {
+    Image,
+    Modal,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import { updateProfile } from '../../../res';
+import { Camera_Icon } from '../../../res/Icons';
+import { height, width } from '../../../res/String';
 
 const Edit = () => {
     const [gender, setGender] = useState('');
@@ -10,7 +19,8 @@ const Edit = () => {
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
+            <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+                {/* Profile Image */}
                 <View style={styles.imageContainer}>
                     <Image style={styles.img} source={updateProfile()} />
                     <TouchableOpacity style={styles.cameraIconContainer}>
@@ -18,11 +28,13 @@ const Edit = () => {
                     </TouchableOpacity>
                 </View>
 
+                {/* Name */}
                 <View style={styles.inputContainer}>
                     <Text style={styles.textInput}>Name</Text>
-                    <TextInput placeholder='Enter Your Name' style={styles.input} />
+                    <TextInput placeholder="Enter Your Name" style={styles.input} />
                 </View>
 
+                {/* Gender */}
                 <View style={styles.inputContainer}>
                     <Text style={styles.textInput}>Gender</Text>
                     <TouchableOpacity
@@ -35,26 +47,30 @@ const Edit = () => {
                     </TouchableOpacity>
                 </View>
 
+                {/* Location */}
                 <View style={styles.inputContainer}>
                     <Text style={styles.textInput}>Location</Text>
-                    <TextInput placeholder='Enter Your Location' style={styles.input} />
+                    <TextInput placeholder="Enter Your Location" style={styles.input} />
                 </View>
 
+                {/* Profession */}
                 <View style={styles.inputContainer}>
                     <Text style={styles.textInput}>Profession</Text>
-                    <TextInput placeholder='Enter Your Profession' style={styles.input} />
+                    <TextInput placeholder="Enter Your Profession" style={styles.input} />
                 </View>
 
+                {/* Bio */}
                 <View style={styles.inputContainer}>
                     <Text style={styles.textInput}>Bio</Text>
                     <TextInput
-                        placeholder='Enter Your Bio'
+                        placeholder="Enter Your Bio"
                         style={[styles.input, styles.bioInput]}
                         multiline
                         numberOfLines={4}
                     />
                 </View>
 
+                {/* Submit */}
                 <TouchableOpacity style={styles.submitButton}>
                     <Text style={styles.submitText}>Submit</Text>
                 </TouchableOpacity>
@@ -70,18 +86,23 @@ const Edit = () => {
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>Select Gender</Text>
-                        <TouchableOpacity
-                            style={styles.modalOption}
-                            onPress={() => { setGender('Male'); setGenderModalVisible(false); }}
-                        >
-                            <Text>Male</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.modalOption}
-                            onPress={() => { setGender('Female'); setGenderModalVisible(false); }}
-                        >
-                            <Text>Female</Text>
-                        </TouchableOpacity>
+                        {['Male', 'Female'].map(option => (
+                            <TouchableOpacity
+                                key={option}
+                                style={[
+                                    styles.modalOption,
+                                    gender === option && styles.modalOptionSelected
+                                ]}
+                                onPress={() => {
+                                    setGender(option);
+                                    setGenderModalVisible(false);
+                                }}
+                            >
+                                <Text style={{ color: gender === option ? '#004B49' : '#000' }}>
+                                    {option}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
                         <TouchableOpacity
                             style={[styles.modalOption, { borderTopWidth: 0 }]}
                             onPress={() => setGenderModalVisible(false)}
@@ -92,10 +113,10 @@ const Edit = () => {
                 </View>
             </Modal>
         </View>
-    )
-}
+    );
+};
 
-export default Edit
+export default Edit;
 
 const styles = StyleSheet.create({
     container: {
@@ -104,10 +125,9 @@ const styles = StyleSheet.create({
     },
     scrollContent: {
         alignItems: 'center',
-        paddingBottom: 20,
+        paddingBottom: 30,
     },
     imageContainer: {
-        // marginTop: 20,
         width: width * 0.95,
         height: height / 2.5,
         alignItems: 'center',
@@ -122,26 +142,22 @@ const styles = StyleSheet.create({
     },
     cameraIconContainer: {
         position: 'absolute',
-        end: 5,
-        bottom: 5,
-        // backgroundColor: '#ffffffdd',
-        // borderRadius: 20,
-        // padding: 1,
-        // elevation: 4
+        right: 10,
+        bottom: 10,
     },
     inputContainer: {
         width: '90%',
         marginVertical: 8
     },
     textInput: {
-        color: "lightgray",
+        color: "gray",
         fontWeight: "600",
         marginBottom: 4
     },
     input: {
         borderRadius: 10,
-        backgroundColor: "lightgray",
-        paddingHorizontal: 10,
+        backgroundColor: "#f0f0f0",
+        paddingHorizontal: 12,
         paddingVertical: 10
     },
     bioInput: {
@@ -150,7 +166,6 @@ const styles = StyleSheet.create({
     },
     submitButton: {
         borderRadius: 10,
-        borderWidth: 1,
         backgroundColor: "#004B49",
         marginTop: 20,
         alignItems: "center",
@@ -158,8 +173,9 @@ const styles = StyleSheet.create({
         paddingVertical: 12
     },
     submitText: {
-        fontSize: 14,
-        color: "white"
+        fontSize: 15,
+        color: "#fff",
+        fontWeight: "600"
     },
     modalOverlay: {
         flex: 1,
@@ -176,11 +192,14 @@ const styles = StyleSheet.create({
     modalTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 12
     },
     modalOption: {
-        paddingVertical: 12,
+        paddingVertical: 14,
         borderTopWidth: 1,
-        borderColor: '#ccc'
+        borderColor: '#ddd'
+    },
+    modalOptionSelected: {
+        backgroundColor: '#e0f7fa'
     }
-})
+});
